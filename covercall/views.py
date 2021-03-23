@@ -41,7 +41,7 @@ def save_covercall(request):
             campaign = {'assetPrice': data.cleaned_data['assetPrice'], 
                 'strikePrice':  data.cleaned_data['strikePrice'], 'call': call} 
             return render(request, 'covercall/campaign.html', {'assetPrice': data.cleaned_data['assetPrice'], 
-                'strikePrice':  data.cleaned_data['strikePrice'], 'call': call} )
+                'strikePrice':  data.cleaned_data['strikePrice'], 'call': call[0] } )
         else:
             return HttpResponse('Bad Request')
 

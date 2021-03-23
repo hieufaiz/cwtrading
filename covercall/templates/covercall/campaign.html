@@ -15,12 +15,11 @@
     <div class="container">
         <h2>Cover Call Campaign</h2>
         <h3>Options (Fair Value)</h3>
-        <form action="" method="POST">
+        <form action="" method="">
             {% csrf_token %}
-            {{campaign}}
             <div class="form-group">
                 <label for="assetprice">Stock Asset Price:</label></br>
-                <input type="text" class="form-control" id="assetPrice" value="{{ assetPrice }}" readonly>
+                <input type="text" class="form-control" id="S" value="{{ assetPrice }}" readonly>
             </div>
 
             <div class="form-group">
@@ -29,32 +28,39 @@
             </div>
 
             <div class="form-group">
+                <label for="assetprice">European Call:</label></br>
+                <input type="text" class="form-control" id="C" value="{{ call }}" readonly>
+            </div>
+
+            <div class="form-group">
                 <label for="assetprice">Number of Stocks:</label></br>
-                <input type="text" class="form-control" id="NumberofStocks">
+                <input type="text" class="form-control" id="N">
             </div>
 
             <div class="form-group">
                 <label for="assetprice">Number of Options: </label></br>
-                <input type="text" class="form-control" id="NumberofOptions">
+                <input type="text" class="form-control" id="M">
             </div>
 
             <div class="form-group">
                 <label for="assetprice">Hedge ratio:</label></br>
-                <input type="text" class="form-control" id="hedgeratio" readonly>
-            </div>
-
-            <div class="form-group">
-                <label for="assetprice">European Call:</label></br>
-                <input type="text" class="form-control" id="europeancall" value="{{ call }}" readonly>
+                <input type="text" class="form-control" id="h" readonly>
             </div>
 
             <div class="form-group">
                 <label for="assetprice">Portfolio value:</label></br>
-                <input type="text" class="form-control" id="portfoliovalue" readonly>
+                <input type="text" class="form-control" id="V" readonly>
             </div>
 
-          <button type="submit" class="btn bg-success text-white">Submit</button>
+          <button type="button" class="btn bg-success text-white" onclick="processcampain()">Submit</button>
         </form>
       </div>
+      <script>
+          function processcampain(){
+            document.getElementById("h").value =  document.getElementById("N").value / document.getElementById("M").value;
+            document.getElementById("V").value = document.getElementById("N").value * document.getElementById("S").value - 
+                document.getElementById("M").value * document.getElementById("C").value;
+          }
+      </script>
 </body>
 </html>
