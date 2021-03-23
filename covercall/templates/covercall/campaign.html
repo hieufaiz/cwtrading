@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Cover Warranty</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'covercall/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cover Call Campaign</h2>
+        <h3>Options (Fair Value)</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{campaign}}
+            <div class="form-group">
+                <label for="assetprice">Stock Asset Price:</label></br>
+                <input type="text" class="form-control" id="assetPrice" value="{{ assetPrice }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Option Strike Price:</label></br>
+                <input type="text" class="form-control" id="strikePrice" value="{{ strikePrice }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Number of Stocks:</label></br>
+                <input type="text" class="form-control" id="NumberofStocks">
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Number of Options: </label></br>
+                <input type="text" class="form-control" id="NumberofOptions">
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Hedge ratio:</label></br>
+                <input type="text" class="form-control" id="hedgeratio" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">European Call:</label></br>
+                <input type="text" class="form-control" id="europeancall" value="{{ call }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Portfolio value:</label></br>
+                <input type="text" class="form-control" id="portfoliovalue" readonly>
+            </div>
+
+          <button type="submit" class="btn bg-success text-white">Submit</button>
+        </form>
+      </div>
+</body>
+</html>
