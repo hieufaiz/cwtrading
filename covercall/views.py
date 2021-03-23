@@ -13,14 +13,14 @@ def save_covercall(request):
     if request.method == "POST":
         data = Covercall(request.POST)
         if data.is_valid():
+            optionsPrice =  data.cleaned_data['assetPrice'] + data.cleaned_data['strikePrice']
+            numberStock = data.cleaned_data['assetPrice'] + data.cleaned_data['strikePrice']
+            numberOption = data.cleaned_data['assetPrice'] + data.cleaned_data['strikePrice']
             covercall = CoverCall(assetPrice = data.cleaned_data['assetPrice'],
                 strikePrice = data.cleaned_data['strikePrice'],
                 maturity = data.cleaned_data['maturity'],
                 rate = data.cleaned_data['rate'],
-                volatility = data.cleaned_data['volatility'],
-                optionsPrice = data.cleaned_data['optionsPrice'],
-                numberStock = data.cleaned_data['numberStock'],
-                numberOption = data.cleaned_data['numberOption']) 
+                volatility = data.cleaned_data['volatility'])
             covercall.save()
             return HttpResponse('save successful')
         else:

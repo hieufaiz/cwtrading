@@ -6,6 +6,3 @@ class Covercall(forms.Form):
     maturity = forms.FloatField()
     rate = forms.FloatField()
     volatility = forms.FloatField()
-    optionsPrice = forms.FloatField()
-    numberStock = forms.IntegerField()
-    numberOption = forms.IntegerField()
