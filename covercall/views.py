@@ -2,28 +2,29 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import Covercall
 from .models import CoverCall
+from .forms import Closeprice
+from .models import ClosePrice
 import numpy as np
 import scipy.stats as si
 import sympy as sy
 from sympy.stats import Normal, cdf
 from sympy import init_printing
+import pandas as pd
 init_printing()
 # Create your views here.
-def index(request):
-    covercall = Covercall
-    a = np.array([1, 2])
-    return render(request, 'covercall/index.html', {'covercall': covercall, 'a': a})
 
 def call_option_price(S, K, t, r, sigma):
     d1 = [np.log(S / K) + (r + ((sigma**2) / 2)) * t] / (sigma * np.sqrt(t))
     d2 = d1 - sigma * np.sqrt(t)
     call_price = S * si.norm.cdf(d1, 0.0, 1.0) - K * np.exp(-r * t) *  si.norm.cdf(d2, 0.0, 1.0)
     return call_price
+
 def put_option_price(S, K, t, r, sigma):
     d1 = [np.log(S / K) + (r + ((sigma**2) / 2)) * t] / (sigma * np.sqrt(t))
     d2 = d1 - sigma * np.sqrt(t)
     put_price = K * np.exp(-r * t)*si.norm.cdf(-d2, 0.0, 1.0) - S * si.norm.cdf(-d1, 0.0, 1.0)
     return put_price
+
 def save_covercall(request):
     if request.method == "POST":
         data = Covercall(request.POST)
@@ -45,3 +46,21 @@ def save_covercall(request):
         else:
             return HttpResponse('Bad Request')
 
+def show_symbol(request):
+    symbols = ClosePrice.objects.values('symbol').distinct()
+    return render(request, 'covercall/symbol.html', {'symbols': symbols})
+
+def calculate_volatility(data):
+    logPrice = np.log(data / data.shift(1))
+    daily_std =  np.std(logPrice)
+    return daily_std.item() * 252 ** 0.5
+
+def index(request, symbol):
+    covercall = Covercall
+    closePrice = ClosePrice.objects.filter(symbol = symbol).values('closePrice')
+    arr_price = np.zeros(len(closePrice), )
+    for index, price in enumerate(closePrice):
+        arr_price[index] = price['closePrice']
+    s_price = pd.Series(arr_price)
+    volatility = calculate_volatility(s_price)
+    return render(request, 'covercall/index.html', {'volatility': volatility, 'covercall': covercall, 'symbol': symbol})

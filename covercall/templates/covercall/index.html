@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Black-Scholes Calculator</h2>
+        <h2>Black-Scholes Calculator with {{symbol}}</h2>
         <form action="{% url 'appcovercall:saveCoverCall' %}" method="POST">
             {% csrf_token %}
             <div class="form-group">
@@ -43,7 +43,7 @@
 
             <div class="form-group">
                 <label for="volatility">Volatility:</label></br>
-                {{ covercall.volatility }}
+                <input type="number" name="volatility" id="volatility" value={{ volatility }}>
                 <small id="ex1" class="form-text text-muted">Example: "0.20" (for 20%)</small>
             </div>
           <button type="submit" class="btn bg-success text-white">Submit</button>

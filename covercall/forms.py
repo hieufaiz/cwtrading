@@ -6,3 +6,8 @@ class Covercall(forms.Form):
     maturity = forms.FloatField()
     rate = forms.FloatField()
     volatility = forms.FloatField()
+
+class Closeprice(forms.Form):
+    date = forms.DateField()
+    symbol = forms.CharField()
+    closePrice = forms.FloatField()
