@@ -33,22 +33,27 @@
             </div>
 
             <div class="form-group">
-                <label for="assetprice">Number of Stocks:</label></br>
-                <input type="text" class="form-control" id="N">
+                <label for="assetprice">Delta Options:</label></br>
+                <input type="text" class="form-control" id="delta" value="{{ deltaOptions }}" readonly>
             </div>
-
+            
             <div class="form-group">
                 <label for="assetprice">Number of Options: </label></br>
                 <input type="text" class="form-control" id="M">
             </div>
 
             <div class="form-group">
-                <label for="assetprice">Hedge ratio:</label></br>
+                <label for="assetprice">Number of Stocks:</label></br>
+                <input type="text" class="form-control" id="N"  readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Hedge Ratio:</label></br>
                 <input type="text" class="form-control" id="h" readonly>
             </div>
 
             <div class="form-group">
-                <label for="assetprice">Portfolio value:</label></br>
+                <label for="assetprice">Portfolio Value:</label></br>
                 <input type="text" class="form-control" id="V" readonly>
             </div>
 
@@ -57,6 +62,7 @@
       </div>
       <script>
           function processcampain(){
+            document.getElementById("N").value = document.getElementById("M").value * document.getElementById("delta").value
             document.getElementById("h").value =  document.getElementById("N").value / document.getElementById("M").value;
             document.getElementById("V").value = document.getElementById("N").value * document.getElementById("S").value - 
                 document.getElementById("M").value * document.getElementById("C").value;
