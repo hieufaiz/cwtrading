@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cover Warranty</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Covered Call Backtesting</h2>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="assetprice">Symbol Shares:</label></br>
+                {{ backtest.symbol }}
+                <small id="ex1" class="form-text text-muted">Example: "CFPT2010"</small>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Start Date:</label></br>
+                {{ backtest.startDate }}
+                <small id="ex1" class="form-text text-muted">Example: "01/04/2020"</small>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">End Date:</label></br>
+                {{ backtest.endDate }}
+                <small id="ex1" class="form-text text-muted">Example: "01/04/2021"</small>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">End Prices:</label></br>
+                {{ backtest.endPrice }}
+                <small id="ex1" class="form-text text-muted">Example: "250"</small>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Call Prices:</label></br>
+                {{ backtest.callPrice }}
+                <small id="ex1" class="form-text text-muted">Example: "250"</small>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Strike Prices:</label></br>
+                {{ backtest.strikePrice }}
+                <small id="ex1" class="form-text text-muted">Example: "500"</small>
+            </div>
+
+          <button type="submit" class="btn bg-success text-white">Submit</button>
+        </form>
+      </div>
+</body>
+</html>

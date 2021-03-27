@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('covercall/', include('covercall.urls')),
+    path('covercall_backtest/', include('covercallbacktest.urls')),
 ]
