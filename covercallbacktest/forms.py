@@ -6,4 +6,3 @@ class Covercallbacktest(forms.Form):
     endDate = forms.DateField()
     callPrice = forms.FloatField()
     strikePrice = forms.FloatField()
-    endPrice = forms.FloatField()
