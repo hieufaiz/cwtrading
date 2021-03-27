@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Cover Warranty</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'covercall/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Covered Call Backtester of {{ symbol }}</h2>
+        <form action="" method="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="assetprice">Breakeven Point:</label></br>
+                <input type="text" class="form-control" id="breakevenPoint" value="{{ breakevenPoint }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Mean:</label></br>
+                <input type="text" class="form-control" id="mean" value="{{ mean }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Volatility:</label></br>
+                <input type="text" class="form-control" id="volatility" value="{{ volatility }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Start Date:</label></br>
+                <input type="text" class="form-control" id="startDate" value="{{ startDate }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">End Date:</label></br>
+                <input type="text" class="form-control" id="endDate" value="{{ endDate }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Delta time:</label></br>
+                <input type="text" class="form-control" id="deltaTime" value="{{ deltaTime }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Max Price:</label></br>
+                <input type="text" class="form-control" id="maxPrice" value="{{ maxPrice }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Min Price:</label></br>
+                <input type="text" class="form-control" id="minPrice" value="{{ minPrice }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Max Logarit Returns:</label></br>
+                <input type="text" class="form-control" id="logReturn" value="{{ logReturn }}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="assetprice">Max Profit: </label></br>
+                <input type="text" class="form-control" id="maxProfit" value="{{ maxProfit }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Min Profit:</label></br>
+                <input type="text" class="form-control" id="minProfit" value="{{ minProfit }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Max Loss: </label></br>
+                <input type="text" class="form-control" id="maxLoss" value="{{ maxLoss }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="assetprice">Min Loss:</label></br>
+                <input type="text" class="form-control" id="minLoss" value="{{ minLoss }}" readonly>
+            </div>
+
+          <button type="button" class="btn bg-success text-white" onclick="processcampain()">Submit</button>
+        </form>
+      </div>
+      <script>
+          function processcampain(){
+            document.getElementById("N").value = document.getElementById("M").value * document.getElementById("delta").value
+            document.getElementById("h").value =  document.getElementById("N").value / document.getElementById("M").value;
+            document.getElementById("V").value = document.getElementById("N").value * document.getElementById("S").value - 
+                document.getElementById("M").value * document.getElementById("C").value;
+          }
+      </script>
+</body>
+</html>

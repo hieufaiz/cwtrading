@@ -7,4 +7,3 @@ class CoverCallBacktest(models.Model):
     endDate = models.DateField()
     callPrice = models.FloatField(null=True)
     strikePrice = models.FloatField(null=True)
-

@@ -12,37 +12,37 @@
 <body>
     <div class="container">
         <h2>Covered Call Backtesting</h2>
-        {{ closeprice }}
-        {{ volatility }}
-        <form action="" method="POST">
+        <!-- {{backtest}} -->
+        <form action="{% url 'appcovercallbacktest:backtesting_covercall' %}" method="POST">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="assetprice">Symbol Shares:</label></br>
                 {{ backtest.symbol }}
-                <small id="ex1" class="form-text text-muted">Example: "CFPT2010"</small>
+                <small id="ex1" class="form-text text-muted">Example: "FPT"</small>
             </div>
 
             <div class="form-group">
                 <label for="assetprice">Start Date:</label></br>
                 {{ backtest.startDate }}
-                <small id="ex1" class="form-text text-muted">Example: "01/04/2020"</small>
+                <small id="ex1" class="form-text text-muted">Example: "27-01-2014"</small>
             </div>
 
             <div class="form-group">
                 <label for="assetprice">End Date:</label></br>
                 {{ backtest.endDate }}
-                <small id="ex1" class="form-text text-muted">Example: "01/04/2021"</small>
+                <small id="ex1" class="form-text text-muted">Example: "01-07-2021"</small>
             </div>
 
             <div class="form-group">
                 <label for="assetprice">Call Prices:</label></br>
                 {{ backtest.callPrice }}
-                <small id="ex1" class="form-text text-muted">Example: "250"</small>
+                <small id="ex1" class="form-text text-muted">Example: "26600"</small>
             </div>
 
             <div class="form-group">
                 <label for="assetprice">Strike Prices:</label></br>
                 {{ backtest.strikePrice }}
-                <small id="ex1" class="form-text text-muted">Example: "500"</small>
+                <small id="ex1" class="form-text text-muted">Example: "30000"</small>
             </div>
 
           <button type="submit" class="btn bg-success text-white">Submit</button>
