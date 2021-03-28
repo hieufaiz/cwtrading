@@ -108,6 +108,6 @@ def backtesting_covercall(request):
             strategy_backtester.save()
             return render(request, 'covercallbacktest/backtest.html', {'breakevenPoint': breakevenPoint, 'startDate': startDate, 'endDate': endDate,
                 'deltaTime': deltaTime, 'volatility': volatility, 'maxPrice': maxPrice, 'minPrice': minPrice, 'mean': mean, 'logReturn': max(logReturn),
-                'maxProfit': maxProfit, 'minProfit': minProfit,'maxLoss': maxLoss, 'minLoss': minLoss })
+                'maxProfit': maxProfit, 'minProfit': minProfit,'maxLoss': maxLoss, 'minLoss': minLoss, 'symbol': symbol })
         else:
             return HttpResponse('Bad Request')
