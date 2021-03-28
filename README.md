@@ -1,4 +1,5 @@
 # cwtrading
-DB: mysql
-framework: django
-python: 3.7
+# DB: mysql
+# Framework: django
+# python version: 3.7
+# pip install mysqlclient
