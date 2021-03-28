@@ -46,6 +46,9 @@
                 <input type="text" class="form-control" id="deltaTime" value="{{ deltaTime }}" readonly>
             </div>
 
+            <img src="data:image/png;base64,{{ graphic|safe }}">
+
+
             <div class="form-group">
                 <label for="assetprice">Max Price:</label></br>
                 <input type="text" class="form-control" id="maxPrice" value="{{ maxPrice }}" readonly>
@@ -80,17 +83,7 @@
                 <label for="assetprice">Min Loss:</label></br>
                 <input type="text" class="form-control" id="minLoss" value="{{ minLoss }}" readonly>
             </div>
-
-          <button type="button" class="btn bg-success text-white" onclick="processcampain()">Submit</button>
         </form>
       </div>
-      <script>
-          function processcampain(){
-            document.getElementById("N").value = document.getElementById("M").value * document.getElementById("delta").value
-            document.getElementById("h").value =  document.getElementById("N").value / document.getElementById("M").value;
-            document.getElementById("V").value = document.getElementById("N").value * document.getElementById("S").value - 
-                document.getElementById("M").value * document.getElementById("C").value;
-          }
-      </script>
 </body>
 </html>

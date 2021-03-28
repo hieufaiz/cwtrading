@@ -7,7 +7,11 @@ import numpy as np
 import pandas as pd
 import math
 from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
 import statistics
+import time
 def index(request):
     backtest = Covercallbacktest 
     # closeprice =  ClosePrice.objects.filter(symbol = 'FPT').values('closePrice')
@@ -26,12 +30,23 @@ def calculate_volatility(data):
 
 def get_price(startDate, endDate, symbol):
     closeprice =  ClosePrice.objects.filter(symbol = symbol).values('closePrice')
-    closeorice = closeprice.filter(date__gte = startDate, date__lte = endDate)
+    closeprice = closeprice.filter(date__gte = startDate, date__lte = endDate)
     arr_price = np.zeros(len(closeprice), )
     for index, price in enumerate(closeprice):
         arr_price[index] = price['closePrice']
     s_price = pd.Series(arr_price)
     return s_price
+
+def get_date(startDate, endDate, symbol):
+    tradeDate = ClosePrice.objects.filter(symbol = symbol).values('date')
+    tradeDate = tradeDate.filter(date__gte = startDate, date__lte = endDate)
+    tradeDate = list(tradeDate)
+    list_date = []
+    for index, date in enumerate(tradeDate):
+        list_date.append(tradeDate[index]['date'])
+    for index, date in enumerate(list_date):
+        list_date[index] = datetime.strftime(list_date[index], "%d-%m-%Y") 
+    return np.array(list_date)
 
 def get_volatility(startDate, endDate, symbol):
     volatility = calculate_volatility(get_price(startDate, endDate, symbol))
@@ -91,7 +106,7 @@ def backtesting_covercall(request):
             breakevenPoint = callPrice + strikePrice
             # sDate = datetime.strptime(startDate, "%d-%m-%Y")
             # eDate = datetime.strptime(endDate, "%d-%m-%Y")
-            deltaTime = startDate - endDate
+            deltaTime = endDate - startDate
             maxPrice, minPrice = get_max_min_price(startDate, endDate, symbol)
             profit, loss = portfolio_value(startDate, endDate, symbol, breakevenPoint)
             maxProfit = np.amax(profit)
@@ -105,9 +120,26 @@ def backtesting_covercall(request):
             mean = get_mean(startDate, endDate, symbol)
             logReturn = get_log_returns(startDate, endDate, symbol)
             logReturn = [x for x in logReturn if math.isnan(x) == False]
+            tradeDate = get_date(startDate, endDate, symbol)
+            for index, date in enumerate(tradeDate):
+                tradeDate[index] = time.mktime(datetime.strptime(tradeDate[index], "%d-%m-%Y").timetuple())
+            prices = get_price(startDate, endDate, symbol)
+            prices = prices.to_numpy()
+            plt.plot(tradeDate, prices, color='green', label='prices')
+            plt.title('Prices figures:')
+            plt.xlabel('Timestamp')
+            plt.ylabel('Prices')
+            buffer = BytesIO()
+            plt.savefig(buffer, format='png')
+            buffer.seek(0)
+            image_png = buffer.getvalue()
+            buffer.close()
+            graphic = base64.b64encode(image_png)
+            graphic = graphic.decode('utf-8')
             strategy_backtester.save()
+            #return render(request, 'covercallbacktest/backtest.html', {'tradeDate': tradeDate})
             return render(request, 'covercallbacktest/backtest.html', {'breakevenPoint': breakevenPoint, 'startDate': startDate, 'endDate': endDate,
                 'deltaTime': deltaTime, 'volatility': volatility, 'maxPrice': maxPrice, 'minPrice': minPrice, 'mean': mean, 'logReturn': max(logReturn),
-                'maxProfit': maxProfit, 'minProfit': minProfit,'maxLoss': maxLoss, 'minLoss': minLoss, 'symbol': symbol })
+                'maxProfit': maxProfit, 'minProfit': minProfit,'maxLoss': maxLoss, 'minLoss': minLoss, 'symbol': symbol, 'tradeDate': tradeDate, 'graphic': graphic})
         else:
             return HttpResponse('Bad Request')
