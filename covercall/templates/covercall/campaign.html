@@ -14,9 +14,9 @@
 <body>
     <div class="container">
         <h2>Cover Call Campaign</h2>
-        <h3>Options (Fair Value)</h3>
+        <h3>Black-Scholes Table</h3>
         {{matu}}
-        <form action="" method="">
+        <!-- <form action="" method="">
             {% csrf_token %}
             <div class="form-group">
                 <label for="assetprice">Stock Asset Price:</label></br>
@@ -57,9 +57,59 @@
                 <label for="assetprice">Portfolio Value:</label></br>
                 <input type="text" class="form-control" id="V" readonly>
             </div>
+        </form> -->
+        <div class="row">
+            <div class="col">
+                <table class="table table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Label</th>
+                        <th scope="col">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Stock Asset Price:</th>
+                            <th scope="col"><input type="text" class="form-control" id="S" value="{{ assetPrice }}" readonly></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Option Strike Price:</th>
+                            <th scope="col"><input type="text" class="form-control" id="S" value="{{ strikePrice }}" readonly></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">European Call:</th>
+                            <th scope="col"><input type="text" class="form-control" id="C" value="{{ call }}" readonly></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Delta Options:</th>
+                            <th scope="col"><input type="text" class="form-control" id="delta" value="{{ deltaOptions }}" readonly></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Number of Options:</th>
+                            <th scope="col"><input type="text" class="form-control" id="M"></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Number of Stocks:</th>
+                            <th scope="col"><input type="text" class="form-control" id="N" readonly></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Hedge Ratio:</th>
+                            <th scope="col"><input type="text" class="form-control" id="H" readonly></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Portfolio Value::</th>
+                            <th scope="col"><input type="text" class="form-control" id="V" readonly></th>
+                        </tr>
+                    </tbody>
+                  </table>
+                  <button type="button" class="btn bg-success text-white" onclick="processcampain()">Submit</button>
+            </div>
+            <div class="col">
+              graph
+            </div>
+        </div>
 
-          <button type="button" class="btn bg-success text-white" onclick="processcampain()">Submit</button>
-        </form>
+        
       </div>
       <script>
           function processcampain(){
