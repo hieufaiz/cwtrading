@@ -16,6 +16,7 @@
         <h2>Cover Call Campaign</h2>
         <h3>Black-Scholes Table</h3>
         {{matu}}
+        {{data}}
         <!-- <form action="" method="">
             {% csrf_token %}
             <div class="form-group">
@@ -77,8 +78,16 @@
                             <th scope="col"><input type="text" class="form-control" id="S" value="{{ strikePrice }}" readonly></th>
                         </tr>
                         <tr>
+                            <th scope="row">Volatility:</th>
+                            <th scope="col"><input type="text" class="form-control" id="S" value="{{ volatility }}" readonly></th>
+                        </tr>
+                        <tr>
                             <th scope="row">European Call:</th>
                             <th scope="col"><input type="text" class="form-control" id="C" value="{{ call }}" readonly></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">European Put:</th>
+                            <th scope="col"><input type="text" class="form-control" id="P" value="{{ put }}" readonly></th>
                         </tr>
                         <tr>
                             <th scope="row">Delta Options:</th>
@@ -108,13 +117,11 @@
               graph
             </div>
         </div>
-
-        
       </div>
       <script>
           function processcampain(){
             document.getElementById("N").value = document.getElementById("M").value * document.getElementById("delta").value
-            document.getElementById("h").value =  document.getElementById("N").value / document.getElementById("M").value;
+            document.getElementById("H").value =  document.getElementById("N").value / document.getElementById("M").value;
             document.getElementById("V").value = document.getElementById("N").value * document.getElementById("S").value - 
                 document.getElementById("M").value * document.getElementById("C").value;
           }

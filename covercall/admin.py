@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import CoverCall, ClosePrice
+from .models import CoverCallStrate, ClosePrice
 
 # Register your models here.
-admin.site.register(CoverCall)
+admin.site.register(CoverCallStrate)
 admin.site.register(ClosePrice)

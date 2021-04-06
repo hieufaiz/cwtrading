@@ -13,52 +13,77 @@
 </head>
 <body>
     <div class="container">
-        <h2>Black-Scholes Calculator with {{symbol}}</h2>
+        <h2>Options Calculator</h2>
         <form action="{% url 'appcovercall:saveCoverCall' %}" method="POST">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="assetprice">Stock Asset Price:</label></br>
-                {{ covercall.assetPrice }}
-                <small id="ex1" class="form-text text-muted">Example: "25.00"</small>
-            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="assetprice">Stock Symbol:</label></br>
+                        <input type="text" name="symbol" id="" value="{{symbol}}" readonly>
+                        <small id="ex1" class="form-text text-muted">Example: "FPT"</small>
+                    </div>    
 
-            <div class="form-group">
-                <label for="strikeprice">Option Strike Price:</label></br>
-                {{ covercall.strikePrice }}
-                <small id="ex1" class="form-text text-muted">Example: "15.00"</small>
-            </div>
+                    <div class="form-group">
+                        <label for="assetprice">Stock Asset Price:</label></br>
+                        {{ covercall.assetPrice }}
+                        <small id="ex1" class="form-text text-muted">Example: "25.00"</small>
+                    </div>
 
-            <div class="form-group">
-                <label for="maturity">Start Date:</label></br>
-                <input type="date" name="startDate" id="startDate">
-                <small id="ex1" class="form-text text-muted">Example: "27-02-2014"</small>
-            </div>
+                    <div class="form-group">
+                        <label for="strikeprice">Option Strike Price:</label></br>
+                        {{ covercall.strikePrice }}
+                        <small id="ex1" class="form-text text-muted">Example: "15.00"</small>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="maturity">Start Date:</label></br>
+                        <input type="date" name="startDate" id="startDate">
+                        <small id="ex1" class="form-text text-muted">Example: "27-02-2014"</small>
+                    </div>
 
-            <div class="form-group">
-                <label for="maturity">End Date:</label></br>
-                <input type="date" name="expirationDate" id="expirationDate" oninput="time_to_expi()" >
-                <small id="ex1" class="form-text text-muted">Example: "01-07-2021"</small>
-            </div>
+                    <div class="form-group">
+                        <label for="maturity">End Date:</label></br>
+                        <input type="date" name="endDate" id="endDate">
+                        <small id="ex1" class="form-text text-muted">Example: "01-07-2016"</small>
+                    </div>
 
-            <div class="form-group">
-                <label for="maturity">Maturity (Time Until Expiration):</label></br>
-                <input type="text" name="maturity" id="maturity" >
-                <small id="ex1" class="form-text text-muted">Example: "3.5"</small>
-            </div>
+                    <div class="form-group">
+                        <label for="maturity">Expiration Date:</label></br>
+                        <input type="date" name="expirationDate" id="expirationDate" oninput="time_to_expi()" >
+                        <small id="ex1" class="form-text text-muted">Example: "01-07-2021"</small>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="maturity">Maturity (Time Until Expiration):</label></br>
+                        <input type="text" name="maturity" id="maturity" >
+                        <small id="ex1" class="form-text text-muted">Example: "3.5"</small>
+                    </div>
 
-            <div class="form-group">
-                <label for="rate">Risk-Free Interest Rate:</label></br>
-                <!-- <input type="password" class="form-control" id="exampleInputPassword1"> -->
-                {{ covercall.rate }}
-                <small id="ex1" class="form-text text-muted">Example: "0.05" (for 5%)"</small>
-            </div>
+                    <div class="form-group">
+                        <label for="rate">Risk-Free Interest Rate:</label></br>
+                        <!-- <input type="password" class="form-control" id="exampleInputPassword1"> -->
+                        {{ covercall.rate }}
+                        <small id="ex1" class="form-text text-muted">Example: "0.05" (for 5%)"</small>
+                    </div>
 
-            <div class="form-group">
-                <label for="volatility">Volatility:</label></br>
-                <input type="number" name="volatility" id="volatility" value={{ volatility }}>
-                <small id="ex1" class="form-text text-muted">Example: "0.20" (for 20%)</small>
+                    <div class="form-group">
+                        <label for="volatility">Black-Scholes:</label></br>
+                        <!-- <input type="number" name="volatility" id="volatility">
+                        <small id="ex1" class="form-text text-muted">Example: "0.20" (for 20%)</small> -->
+                        <button type="submit" class="btn bg-success text-white">Calculate</button>
+                    </div>
+                </div>
             </div>
-          <button type="submit" class="btn bg-success text-white">Submit</button>
+            <!-- <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <button type="submit" class="btn bg-success text-white">Submit</button>
+                </div>
+                <div class="col-sm"></div>
+            </div>     -->
         </form>
       </div>
 </body>
@@ -67,8 +92,8 @@
         // var startDate = document.getElementById('startDate').value;
         // var exprirationDate = document.getElementById('expirationDate').value;
         var startDate = new Date(document.getElementById('startDate').value);
-        var endDate = new Date(document.getElementById('expirationDate').value);
-        deltaTime = Math.abs(endDate - startDate);
+        var expDate = new Date(document.getElementById('expirationDate').value);
+        deltaTime = Math.abs(expDate - startDate);
         document.getElementById('maturity').value = parseFloat(Math.ceil((deltaTime / (1000 * 60 * 60 * 24))) / 365); 
     }
 </script>
