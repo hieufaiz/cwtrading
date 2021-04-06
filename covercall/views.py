@@ -11,6 +11,14 @@ from sympy.stats import Normal, cdf
 from sympy import init_printing
 import pandas as pd
 from datetime import datetime, timedelta
+import math
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from io import BytesIO
+import base64
+import statistics
+import time
 init_printing()
 # Create your views here.
 
@@ -46,8 +54,22 @@ def save_covercall(request):
                 data.cleaned_data['maturity'], data.cleaned_data['rate'], volatility)
             put = put_option_price(data.cleaned_data['assetPrice'], data.cleaned_data['strikePrice'],
                 data.cleaned_data['maturity'], data.cleaned_data['rate'], volatility)
+            tradeDate = get_date(startDate, endDate, symbol)
+            prices = get_price(startDate, endDate, symbol)
+            prices = prices.to_numpy()
+            plt.plot(tradeDate, prices, color='green', label='prices')
+            plt.title('Prices figures:')
+            plt.xlabel('Timestamp')
+            plt.ylabel('Prices')
+            buffer = BytesIO()
+            plt.savefig(buffer, format='png')
+            buffer.seek(0)
+            image_png = buffer.getvalue()
+            buffer.close()
+            graphic = base64.b64encode(image_png)
+            graphic = graphic.decode('utf-8')
             return render(request, 'covercall/campaign.html', {'assetPrice': data.cleaned_data['assetPrice'], 
-                'strikePrice':  data.cleaned_data['strikePrice'], 
+                'strikePrice':  data.cleaned_data['strikePrice'], 'graphic': graphic,
                 'call': call[0], 'deltaOptions': deltaOptions, 'volatility': volatility, 'put': put[0] })
         else:
             return HttpResponse('Bad Request')
@@ -55,6 +77,17 @@ def save_covercall(request):
 def show_symbol(request):
     symbols = ClosePrice.objects.values('symbol').distinct()
     return render(request, 'covercall/symbol.html', {'symbols': symbols})
+
+def get_date(startDate, endDate, symbol):
+    tradeDate = ClosePrice.objects.filter(symbol = symbol).values('date')
+    tradeDate = tradeDate.filter(date__gte = startDate, date__lte = endDate)
+    tradeDate = list(tradeDate)
+    list_date = []
+    for index, date in enumerate(tradeDate):
+        list_date.append(tradeDate[index]['date'])
+    for index, date in enumerate(list_date):
+        list_date[index] = datetime.strftime(list_date[index], "%d-%m-%Y") 
+    return np.array(list_date)
 
 def get_price(startDate, endDate, symbol):
     closeprice =  ClosePrice.objects.filter(symbol = symbol).values('closePrice')
