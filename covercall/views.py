@@ -101,7 +101,7 @@ def get_price(startDate, endDate, symbol):
 def calculate_volatility(data):
     logPrice = np.log(data / data.shift(1))
     daily_std =  np.std(logPrice)
-    return daily_std.item() * 252 ** 0.5
+    return daily_std * 252 ** 0.5
 
 def get_volatility(startDate, endDate, symbol):
     volatility = calculate_volatility(get_price(startDate, endDate, symbol))
