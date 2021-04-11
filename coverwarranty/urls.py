@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('covercall/', include('covercall.urls')),
     path('covercall_backtest/', include('covercallbacktest.urls')),
+    path('fpt2003backtest/', include('fpt2003backtest.urls')),
 ]
