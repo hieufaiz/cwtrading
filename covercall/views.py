@@ -4,6 +4,8 @@ from .forms import Covercallstrate
 from .models import CoverCallStrate
 from .forms import Closeprice
 from .models import ClosePrice
+from .forms import Cwprice
+from .models import CWPrice
 import numpy as np
 import scipy.stats as si
 import sympy as sy
@@ -68,9 +70,13 @@ def save_covercall(request):
             buffer.close()
             graphic = base64.b64encode(image_png)
             graphic = graphic.decode('utf-8')
+            fdateCW = CWPrice.objects.values('dateCW').first()
+            fdateCW = list(fdateCW.values())[0].strftime("%d-%m-%Y")
+            ldateCW = CWPrice.objects.values('dateCW').last()
+            ldateCW = list(ldateCW.values())[0].strftime("%d-%m-%Y")
             return render(request, 'covercall/campaign.html', {'assetPrice': data.cleaned_data['assetPrice'], 
-                'strikePrice':  data.cleaned_data['strikePrice'], 'graphic': graphic,
-                'call': call[0], 'deltaOptions': deltaOptions, 'volatility': volatility, 'put': put[0] })
+                'strikePrice':  data.cleaned_data['strikePrice'], 'graphic': graphic, 'fdateCW': fdateCW, 
+                'ldateCW': ldateCW, 'call': call[0], 'deltaOptions': deltaOptions, 'volatility': volatility, 'put': put[0] })
         else:
             return HttpResponse('Bad Request')
 

@@ -33,11 +33,11 @@
                         </tr>
                         <tr>
                             <th scope="row">Option Strike Price:</th>
-                            <th scope="col"><input type="text" class="form-control" id="S" value="{{ strikePrice }}" readonly></th>
+                            <th scope="col"><input type="text" class="form-control" id="St" value="{{ strikePrice }}" readonly></th>
                         </tr>
                         <tr>
                             <th scope="row">Volatility:</th>
-                            <th scope="col"><input type="text" class="form-control" id="S" value="{{ volatility }}" readonly></th>
+                            <th scope="col"><input type="text" class="form-control" id="vol" value="{{ volatility }}" readonly></th>
                         </tr>
                         <tr>
                             <th scope="row">European Call:</th>
@@ -47,7 +47,7 @@
                             <th scope="row">European Put:</th>
                             <th scope="col"><input type="text" class="form-control" id="P" value="{{ put }}" readonly></th>
                         </tr>
-                        <tr>
+                        {% comment %} <tr>
                             <th scope="row">Delta Options:</th>
                             <th scope="col"><input type="text" class="form-control" id="delta" value="{{ deltaOptions }}" readonly></th>
                         </tr>
@@ -66,40 +66,62 @@
                         <tr>
                             <th scope="row">Portfolio Value::</th>
                             <th scope="col"><input type="text" class="form-control" id="V" readonly></th>
-                        </tr>
+                        </tr> {% endcomment %}
                     </tbody>
                   </table>
-                  <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button>
+                  {% comment %} <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button> {% endcomment %}
             </div>
-            <div class="col">
-                <img src="data:image/png;base64,{{ graphic|safe }}">
-                <h4>Backtester</h4>
-                <form action="{% url 'appcovercall:saveCoverCall' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <label for="assetprice">From:</label></br>
-                                <input type="date" name="BtstartDate" id="">
-                            </div>
-                            <div class="form-group">
-                                <label for="assetprice">To:</label></br>
-                                <input type="date" name="BtendDate" id="">
-                            </div>
+            <img src="data:image/png;base64,{{ graphic|safe }}">
+            <h4>Backtester from {{fdateCW}} to {{ldateCW}}</h4>
+            <form action="{% url 'appcovercall:saveCoverCall' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="assetprice">Start:</label></br>
+                            <input type="date" name="BtstartDate" id="" >
                         </div>
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <label for="assetprice">Delta times:</label></br>
-                                <input type="number" name="Btdeltatimes" id="">
-                                <small id="ex1" class="form-text text-muted">"10 days"</small>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Test</button>
+                        <div class="form-group">
+                            <label for="assetprice">End:</label></br>
+                            <input type="date" name="BtendDate" id="" >
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="assetprice">Delta times:</label></br>
+                            <input type="number" name="Btdeltatimes" id="" >
+                        </div>
+                        <div class="form-group">
+                            <label for="assetprice">European Call:</label></br>
+                            <input type="text"  id="C" value="{{ call }}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="assetprice">Number of Options:</label></br>
+                            <input type="text"  id="M">
+                        </div>
+                        <div class="form-group">
+                            <label for="assetprice">Number of Stocks:</label></br>
+                            <input type="text"  id="N" readonly>
+                        </div>
+                        <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="deltaOptions">Delta Options:</label></br>
+                            <input type="number" id="delta" value="{{ deltaOptions }}" readonly>
+                        </div>
+                        <div class="form-group">
+                        <label>Backtesting</label></br>
+                        <button type="submit" class="btn btn-primary">Test</button>
+                        </div>
+                    </div>
+                </div>
+                {% comment %} <button type="submit" class="btn btn-primary">Test</button> {% endcomment %}
+            </form>
         </div>
-      </div>
+    </div>
       <script>
           function processcampain(){
             document.getElementById("N").value = document.getElementById("M").value * document.getElementById("delta").value
