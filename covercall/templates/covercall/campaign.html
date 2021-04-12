@@ -73,37 +73,41 @@
             </div>
             <img src="data:image/png;base64,{{ graphic|safe }}">
             <h4>Backtester from {{fdateCW}} to {{ldateCW}}</h4>
-            <form action="{% url 'appcovercall:saveCoverCall' %}" method="POST">
+            <form action="{% url 'appcovercall:backtestting' %}" method="POST">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-3">
                         <div class="form-group">
                             <label for="assetprice">Start:</label></br>
-                            <input type="date" name="BtstartDate" id="" >
+                            <input type="date" name="startdateBt" id="" >
                         </div>
                         <div class="form-group">
                             <label for="assetprice">End:</label></br>
-                            <input type="date" name="BtendDate" id="" >
+                            <input type="date" name="enddateBt" id="" >
+                        </div>
+                        <div class="form-group">
+                            <label for="assetprice">Time range:</label></br>
+                            <input type="number" name="timerange" >
                         </div>
                     </div>
                     <div class="col-3">
-                        <div class="form-group">
+                        {% comment %} <div class="form-group">
                             <label for="assetprice">Time range:</label></br>
-                            <input type="number" name="Timerange" id="">
-                        </div>
+                            <input type="number" name="timerange" >
+                        </div> {% endcomment %}
                         <div class="form-group">
                             <label for="assetprice">European Call:</label></br>
-                            <input type="text"  id="C" value="{{ call }}" readonly>
+                            <input type="text" name="c"  id="C" value="{{ call }}" readonly>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="assetprice">Number of Options:</label></br>
-                            <input type="text"  id="M">
+                            <input type="text" name = "m" id="M">
                         </div>
                         <div class="form-group">
                             <label for="assetprice">Number of Stocks:</label></br>
-                            <input type="text"  id="N" readonly>
+                            <input type="text" name="n" id="N" readonly>
                         </div>
                         <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button>
                     </div>
@@ -113,8 +117,8 @@
                             <input type="number" id="delta" value="{{ deltaOptions }}" readonly>
                         </div>
                         <div class="form-group">
-                        <label>Backtesting</label></br>
-                        <button type="submit" class="btn btn-primary">Test</button>
+                            <label>Backtesting</label></br>
+                            <button type="submit" class="btn btn-primary">Test</button>
                         </div>
                     </div>
                 </div>

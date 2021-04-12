@@ -31,4 +31,3 @@ class CoverCallBt(models.Model):
     c = models.FloatField(null=True)
     m = models.FloatField(null=True)
     n = models.FloatField(null=True)
-    s = models.FloatField(null=True)

@@ -4,8 +4,8 @@ from .forms import Covercallstrate
 from .models import CoverCallStrate
 from .forms import Closeprice
 from .models import ClosePrice
-from .forms import Cwprice
-from .models import CWPrice
+from .forms import Cwprice, Covercallbt
+from .models import CWPrice, CoverCallBt
 import numpy as np
 import scipy.stats as si
 import sympy as sy
@@ -116,3 +116,43 @@ def get_volatility(startDate, endDate, symbol):
 def index(request, symbol):
     covercall = Covercallstrate
     return render(request, 'covercall/index.html', {'covercall': covercall, 'symbol': symbol})
+
+def backtest(request):
+    if request.method == "POST":
+        data = Covercallbt(request.POST)
+        #return render(request, 'covercall/backtest.html', {'data': data})
+        if data.is_valid():
+            startdateBt = data.cleaned_data['startdateBt']
+            enddateBt = data.cleaned_data['enddateBt']
+            timerange = data.cleaned_data['timerange']
+            covercallbacktest = CoverCallBt(startdateBt = data.cleaned_data['startdateBt'],
+                enddateBt = data.cleaned_data['enddateBt'],
+                timerange = data.cleaned_data['timerange'],
+                c = data.cleaned_data['c'],
+                m = data.cleaned_data['m'],
+                n = data.cleaned_data['n'])
+            covercallbacktest.save()
+            return render(request, 'covercall/backtest.html', {'c': data.cleaned_data['c'],
+                'startDate': data.cleaned_data['startdateBt'], 'endDate': data.cleaned_data['enddateBt'],
+                'timerange': data.cleaned_data['timerange']})
+        else:
+            return HttpResponse('Bad Request')
+
+def getV(c, m, n, s):
+    return n*s - m*c
+
+def portfolio_value(startDate, endDate, c, m , n):
+    tradeDate = CWPrice.objects.values('dateCW')
+    tradeDate = tradeDate.filter(date__gte = startDate, date__lte = endDate)
+    tradeDate = list(tradeDate)
+    listV = []
+    for index, date in enumerate(tradeDate):
+        s = CWPrice.objects.filter(dateCW = date).values('closePriceCW')
+        listV.append(getV(c, m, n, s))
+    return listV
+
+def getReturns(val):
+    logReturns = []
+    for i, v in enumerate(val):
+        logReturns.append(val[i]/val[0])
+    return logReturns

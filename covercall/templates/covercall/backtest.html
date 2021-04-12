@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Cover Warranty</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'covercall/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Covered Call Bactester</h2>
+        {{data.as_p}}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="From">From:</label></br>
+                        <input type="text" name="startDate" id="" value="{{startDate}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="To">To:</label></br>
+                        <input type="text" name="endDate" id="" value="{{endDate}}" readonly>
+                    </div>
+                    <div class="form-group">
+                            <label for="Timerange">Time range(days):</label></br>
+                            <input type="number" name="timerange" id="" readonly value="{{timerange}}">
+                        </div>
+                    <div class="form-group">
+                        <label for="EuropeanCall">European Call:</label></br>
+                        <input type="text" id="C" value="{{ c }}" readonly>
+                    </div>  
+                </div>
+            </div>
+        </form>
+      </div>
+</body>
+<script>
+</script>
+</html>

@@ -31,4 +31,3 @@ class Covercallbt(forms.Form):
     c = forms.FloatField()
     m = forms.FloatField()
     n = forms.FloatField()
-    s = forms.FloatField()
