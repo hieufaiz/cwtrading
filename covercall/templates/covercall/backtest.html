@@ -14,7 +14,9 @@
 <body>
     <div class="container">
         <h2>Covered Call Bactester</h2>
-        {{data.as_p}}
+        {% comment %} {{data.as_p}}
+        {{listV}}
+        {{listReturns}} {% endcomment %}
         <form action="" method="POST">
             {% csrf_token %}
             <div class="row">
@@ -33,11 +35,12 @@
                         </div>
                     <div class="form-group">
                         <label for="EuropeanCall">European Call:</label></br>
-                        <input type="text" id="C" value="{{ c }}" readonly>
+                        <input type="text" id="C" value="{{c}}" readonly>
                     </div>  
                 </div>
             </div>
         </form>
+        <img src="data:image/png;base64,{{ graphicV|safe }}">
       </div>
 </body>
 <script>
