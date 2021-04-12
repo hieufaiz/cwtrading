@@ -8,7 +8,18 @@ class Covercallstrate(forms.Form):
     startDate = forms.DateField()
     endDate = forms.DateField()
     symbol = forms.CharField()
+
 class Closeprice(forms.Form):
     date = forms.DateField()
     symbol = forms.CharField()
     closePrice = forms.FloatField()
+
+class Cwprice(forms.Form):
+    date = forms.DateField()
+    symbol = forms.CharField()
+    openPriceCW = forms.FloatField()
+    highPriceCW = forms.FloatField()
+    lowPriceCW = forms.FloatField()
+    closePriceCW = forms.FloatField()
+    volumeCW = forms.FloatField()
+    valueCW = forms.FloatField()
