@@ -23,3 +23,12 @@ class Cwprice(forms.Form):
     closePriceCW = forms.FloatField()
     volumeCW = forms.FloatField()
     valueCW = forms.FloatField()
+
+class Covercallbt(forms.Form):
+    startdateBt = forms.DateField()
+    enddateBt = forms.DateField()
+    timerange = forms.FloatField()
+    c = forms.FloatField()
+    m = forms.FloatField()
+    n = forms.FloatField()
+    s = forms.FloatField()

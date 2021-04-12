@@ -23,3 +23,12 @@ class CWPrice(models.Model):
     closePriceCW = models.FloatField(null=True)
     volumeCW = models.FloatField(null=True)
     valueCW = models.FloatField(null=True)
+
+class CoverCallBt(models.Model):
+    startdateBt = models.DateField()
+    enddateBt = models.DateField()
+    timerange = models.FloatField(null=True)
+    c = models.FloatField(null=True)
+    m = models.FloatField(null=True)
+    n = models.FloatField(null=True)
+    s = models.FloatField(null=True)
