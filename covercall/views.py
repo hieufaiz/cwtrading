@@ -135,8 +135,12 @@ def backtest(request):
                 m = data.cleaned_data['m'],
                 n = data.cleaned_data['n'])
             covercallbacktest.save()
-            listV, listDate = portfolio_value(startdateBt, enddateBt, c, m, n)
+            listV, listDate, CWdate = portfolio_value(startdateBt, enddateBt, c, m, n)
             listReturns = getReturns(listV)
+            # index = 0
+            # while(index < len(CWdate)):
+            #     for i in range(index, index + 10, index + 1):
+            
             plt.plot(listDate, listReturns, color='green', label='prices')
             plt.title('Log returns:')
             plt.xlabel('Date')
@@ -171,10 +175,11 @@ def portfolio_value(startDate, endDate, c, m , n):
     for index, date in enumerate(CWdate):
         s = CWPrice.objects.filter(dateCW = date).values('closePriceCW')
         listV.append(getV(c, m, n, s[0]['closePriceCW']))
-    return np.array(listV), np.array(listDate)
+    return np.array(listV), np.array(listDate), np.array(CWdate)
 
 def getReturns(val):
     logReturns = []
     for i, v in enumerate(val):
         logReturns.append(val[i]/val[0])
     return np.array(logReturns)
+
