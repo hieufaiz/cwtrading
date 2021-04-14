@@ -137,11 +137,14 @@ def backtest(request):
             covercallbacktest.save()
             listV, listDate, CWdate = portfolio_value(startdateBt, enddateBt, c, m, n)
             listReturns = getReturns(listV)
-            # index = 0
-            # while(index < len(CWdate)):
-            #     for i in range(index, index + 10, index + 1):
-            
-            plt.plot(listDate, listReturns, color='green', label='prices')
+            listday = []
+            for i in range(0, 14):
+                listday.append(i)
+            listReturnsrange, listTimerange = range_returns(startdateBt, enddateBt, int(timerange), c, m, n)
+            pastreturn = []
+            for r in listReturnsrange:
+                pastreturn.append(sum(r)/len(r))
+            plt.plot(listday, pastreturn, color='green', label='prices')
             plt.title('Log returns:')
             plt.xlabel('Date')
             plt.ylabel('Returns')
@@ -155,8 +158,8 @@ def backtest(request):
             return render(request, 'covercall/backtest.html', {'c': data.cleaned_data['c'],
                 'startDate': data.cleaned_data['startdateBt'], 'endDate': data.cleaned_data['enddateBt'],
                 'timerange': data.cleaned_data['timerange'] / 2, 'listV': listV, 'listReturns': listReturns,
-                'graphicV': graphicV})
-        else:
+                'listReturnsrange': listReturnsrange, 'graphicV': graphicV})
+        else:   
             return HttpResponse('Bad Request')
 
 def getV(c, m, n, s):
@@ -183,3 +186,24 @@ def getReturns(val):
         logReturns.append(val[i]/val[0])
     return np.array(logReturns)
 
+def range_returns(startDate, endDate, timerange, c, m, n):
+    idStart = CWPrice.objects.filter(dateCW=startDate).values('id')
+    idStart = int(idStart[0]['id'])
+    idEnd = CWPrice.objects.filter(dateCW=endDate).values('id')
+    idEnd = int(idEnd[0]['id'])
+    listReturns = []
+    listV = []
+    listtimerange = []
+    listDate = []
+    for i in range(idStart, int((idEnd-idStart))):
+        timetrade = CWPrice.objects.values('dateCW')[i-1:timerange]
+        listtimerange.append(timetrade)
+        CWdate = []
+        for date in timetrade:
+            CWdate.append(date['dateCW'].strftime("%Y-%m-%d"))
+        for index, date in enumerate(CWdate):
+            s = CWPrice.objects.filter(dateCW = date).values('closePriceCW')
+            listV.append(getV(c, m, n, s[0]['closePriceCW']))
+        listReturns.append(getReturns(listV))
+    return np.array(listReturns), np.array(listtimerange)
+    
