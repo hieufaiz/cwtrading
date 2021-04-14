@@ -141,10 +141,10 @@ def backtest(request):
             for i in range(0, 14):
                 listday.append(i)
             listReturnsrange, listTimerange = range_returns(startdateBt, enddateBt, int(timerange), c, m, n)
-            pastreturn = []
+            avgreturn = []
             for r in listReturnsrange:
-                pastreturn.append(sum(r)/len(r))
-            plt.plot(listday, pastreturn, color='green', label='prices')
+                avgreturn.append(sum(r)/len(r))
+            plt.plot(listday, avgreturn, color='green', label='prices')
             plt.title('Log returns:')
             plt.xlabel('Date')
             plt.ylabel('Returns')
