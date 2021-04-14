@@ -145,9 +145,9 @@ def backtest(request):
             for r in listReturnsrange:
                 avgreturn.append(sum(r)/len(r))
             plt.plot(listday, avgreturn, color='green', label='prices')
-            plt.title('Log returns:')
+            plt.title('Log returns average graph:')
             plt.xlabel('Date')
-            plt.ylabel('Returns')
+            plt.ylabel('Log Returns average')
             buffer = BytesIO()
             plt.savefig(buffer, format='png')
             buffer.seek(0)
