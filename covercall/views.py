@@ -124,13 +124,13 @@ def backtest(request):
         if data.is_valid():
             startdateBt = data.cleaned_data['startdateBt']
             enddateBt = data.cleaned_data['enddateBt']
-            timerange = data.cleaned_data['timerange']
+            timerange = data.cleaned_data['timerange'] / 2
             c = data.cleaned_data['c']
             m = data.cleaned_data['m']
             n = data.cleaned_data['n']
             covercallbacktest = CoverCallBt(startdateBt = data.cleaned_data['startdateBt'],
                 enddateBt = data.cleaned_data['enddateBt'],
-                timerange = data.cleaned_data['timerange'],
+                timerange = data.cleaned_data['timerange'] / 2,
                 c = data.cleaned_data['c'],
                 m = data.cleaned_data['m'],
                 n = data.cleaned_data['n'])
@@ -154,7 +154,7 @@ def backtest(request):
             graphicV = graphicV.decode('utf-8')
             return render(request, 'covercall/backtest.html', {'c': data.cleaned_data['c'],
                 'startDate': data.cleaned_data['startdateBt'], 'endDate': data.cleaned_data['enddateBt'],
-                'timerange': data.cleaned_data['timerange'], 'listV': listV, 'listReturns': listReturns,
+                'timerange': data.cleaned_data['timerange'] / 2, 'listV': listV, 'listReturns': listReturns,
                 'graphicV': graphicV})
         else:
             return HttpResponse('Bad Request')
