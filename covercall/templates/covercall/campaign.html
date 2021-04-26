@@ -72,7 +72,7 @@
                   {% comment %} <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button> {% endcomment %}
             </div>
             <img src="data:image/png;base64,{{ graphic|safe }}">
-            <h4>Backtester from {{fdateCW}} to {{ldateCW}}</h4>
+            <h4>Backtester from {{fdateCW}} to 15-01-2021</h4>
             <form action="{% url 'appcovercall:backtestting' %}" method="POST">
                 {% csrf_token %}
                 <div class="row">

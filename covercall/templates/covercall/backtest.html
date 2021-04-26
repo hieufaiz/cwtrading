@@ -13,12 +13,13 @@
 </head>
 <body>
     <div class="container">
-        <h2>Covered Call Bactester</h2>
+        <h2>Covered Call Backtester</h2>
         {% comment %} {{data.as_p}} {% endcomment %}
         {% comment %} {{listV}}
         {{listReturns}} {% endcomment %}
         {% comment %} {{listReturnsrange}}
         {{listTimerange}} {% endcomment %}
+        {{avgreturn}}
         <form action="" method="POST">
             {% csrf_token %}
             <div class="row">

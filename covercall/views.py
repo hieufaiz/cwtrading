@@ -158,7 +158,7 @@ def backtest(request):
             return render(request, 'covercall/backtest.html', {'c': data.cleaned_data['c'],
                 'startDate': data.cleaned_data['startdateBt'], 'endDate': data.cleaned_data['enddateBt'],
                 'timerange': data.cleaned_data['timerange'] / 2, 'listV': listV, 'listReturns': listReturns,
-                'listReturnsrange': listReturnsrange, 'graphicV': graphicV})
+                'listReturnsrange': listReturnsrange, 'graphicV': graphicV, 'avgreturn': avgreturn})
         else:   
             return HttpResponse('Bad Request')
 
