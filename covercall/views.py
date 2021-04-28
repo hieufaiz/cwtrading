@@ -5,7 +5,7 @@ from .models import CoverCallStrate
 from .forms import Closeprice
 from .models import ClosePrice
 from .forms import Cwprice, Covercallbt
-from .models import CWPrice, CoverCallBt
+from .models import CWPrice, CoverCallBacktest
 import numpy as np
 import scipy.stats as si
 import sympy as sy
@@ -128,7 +128,7 @@ def backtest(request):
             c = data.cleaned_data['c']
             m = data.cleaned_data['m']
             n = data.cleaned_data['n']
-            covercallbacktest = CoverCallBt(startdateBt = data.cleaned_data['startdateBt'],
+            covercallbacktest = CoverCallBacktest(startdateBt = data.cleaned_data['startdateBt'],
                 enddateBt = data.cleaned_data['enddateBt'],
                 timerange = data.cleaned_data['timerange'] / 2,
                 c = data.cleaned_data['c'],
@@ -154,12 +154,12 @@ def backtest(request):
             buffer.seek(0)
             image_png = buffer.getvalue()
             buffer.close()
-            graphicV = base64.b64encode(image_png)
-            graphicV = graphicV.decode('utf-8')
+            imageReturn = base64.b64encode(image_png)
+            imageReturn = imageReturn.decode('utf-8')
             return render(request, 'covercall/backtest.html', {'c': data.cleaned_data['c'],
                 'startDate': data.cleaned_data['startdateBt'], 'endDate': data.cleaned_data['enddateBt'],
                 'timerange': data.cleaned_data['timerange'] / 2, 'listV': listV, 'listReturns': listReturns,
-                'listReturnsrange': listReturnsrange, 'graphicV': graphicV, 'avgreturn': avgreturn , 'log_avg_return': log_avg_return})
+                'listReturnsrange': listReturnsrange, 'imageReturn': imageReturn, 'avgreturn': avgreturn , 'log_avg_return': log_avg_return})
         else:   
             return HttpResponse('Bad Request')
 

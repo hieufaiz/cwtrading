@@ -24,7 +24,7 @@ class CWPrice(models.Model):
     volumeCW = models.FloatField(null=True)
     valueCW = models.FloatField(null=True)
 
-class CoverCallBt(models.Model):
+class CoverCallBacktest(models.Model):
     startdateBt = models.DateField()
     enddateBt = models.DateField()
     timerange = models.FloatField(null=True)
