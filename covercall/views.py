@@ -144,7 +144,8 @@ def backtest(request):
             avgreturn = []
             for r in listReturnsrange:
                 avgreturn.append(sum(r)/len(r))
-            plt.plot(listday, avgreturn, color='green', label='prices')
+            log_avg_return = getReturns(avgreturn)
+            plt.plot(listday, log_avg_return, color='green', label='prices')
             plt.title('Log returns average graph:')
             plt.xlabel('Date')
             plt.ylabel('Log Returns average')
@@ -158,7 +159,7 @@ def backtest(request):
             return render(request, 'covercall/backtest.html', {'c': data.cleaned_data['c'],
                 'startDate': data.cleaned_data['startdateBt'], 'endDate': data.cleaned_data['enddateBt'],
                 'timerange': data.cleaned_data['timerange'] / 2, 'listV': listV, 'listReturns': listReturns,
-                'listReturnsrange': listReturnsrange, 'graphicV': graphicV, 'avgreturn': avgreturn})
+                'listReturnsrange': listReturnsrange, 'graphicV': graphicV, 'avgreturn': avgreturn , 'log_avg_return': log_avg_return})
         else:   
             return HttpResponse('Bad Request')
 

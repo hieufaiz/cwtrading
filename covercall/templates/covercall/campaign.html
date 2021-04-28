@@ -47,29 +47,8 @@
                             <th scope="row">European Put:</th>
                             <th scope="col"><input type="text" class="form-control" id="P" value="{{ put }}" readonly></th>
                         </tr>
-                        {% comment %} <tr>
-                            <th scope="row">Delta Options:</th>
-                            <th scope="col"><input type="text" class="form-control" id="delta" value="{{ deltaOptions }}" readonly></th>
-                        </tr>
-                        <tr>
-                            <th scope="row">Number of Options:</th>
-                            <th scope="col"><input type="text" class="form-control" id="M"></th>
-                        </tr>
-                        <tr>
-                            <th scope="row">Number of Stocks:</th>
-                            <th scope="col"><input type="text" class="form-control" id="N" readonly></th>
-                        </tr>
-                        <tr>
-                            <th scope="row">Hedge Ratio:</th>
-                            <th scope="col"><input type="text" class="form-control" id="H" readonly></th>
-                        </tr>
-                        <tr>
-                            <th scope="row">Portfolio Value::</th>
-                            <th scope="col"><input type="text" class="form-control" id="V" readonly></th>
-                        </tr> {% endcomment %}
                     </tbody>
                   </table>
-                  {% comment %} <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button> {% endcomment %}
             </div>
             <img src="data:image/png;base64,{{ graphic|safe }}">
             <h4>Backtester from {{fdateCW}} to {{ldateCW}}</h4>

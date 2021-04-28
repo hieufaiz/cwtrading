@@ -19,7 +19,8 @@
         {{listReturns}} {% endcomment %}
         {% comment %} {{listReturnsrange}}
         {{listTimerange}} {% endcomment %}
-        {{avgreturn}}
+        {% comment %} {{avgreturn}} {% endcomment %}
+        {{log_avg_return}}
         <form action="" method="POST">
             {% csrf_token %}
             <div class="row">
