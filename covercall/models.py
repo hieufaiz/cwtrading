@@ -31,3 +31,10 @@ class CoverCallBacktest(models.Model):
     c = models.FloatField(null=True)
     m = models.FloatField(null=True)
     n = models.FloatField(null=True)
+
+class Backtest(models.Model):
+    enddateBt = models.DateField()
+    timerange = models.FloatField(null=True)
+    c = models.FloatField(null=True)
+    m = models.FloatField(null=True)
+    n = models.FloatField(null=True)

@@ -14,24 +14,21 @@
 <body>
     <div class="container">
         <h2>Covered Call Backtester</h2>
-        {% comment %} {{data.as_p}} {% endcomment %}
-        {% comment %} {{listV}}
+        {% comment %} {{log_avg_return}} {% endcomment %}
+        {% comment %} {{list_timerange}}
         {{listReturns}} {% endcomment %}
-        {% comment %} {{listReturnsrange}}
-        {{listTimerange}} {% endcomment %}
-        {% comment %} {{avgreturn}} {% endcomment %}
         {{log_avg_return}}
         <form action="" method="POST">
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm">
-                    <div class="form-group">
+                    {% comment %} <div class="form-group">
                         <label for="From">From:</label></br>
                         <input type="text" name="startDate" id="" value="{{startDate}}" readonly>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="form-group">
                         <label for="To">To:</label></br>
-                        <input type="text" name="endDate" id="" value="{{endDate}}" readonly>
+                        <input type="text" name="endDate" id="" value="{{enddateBt}}" readonly>
                     </div>
                     <div class="form-group">
                             <label for="Timerange">Time range(days):</label></br>

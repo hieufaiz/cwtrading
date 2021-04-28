@@ -52,7 +52,8 @@
             </div>
             <img src="data:image/png;base64,{{ graphic|safe }}">
             <h4>Backtester from {{fdateCW}} to {{ldateCW}}</h4>
-            <form action="{% url 'appcovercall:backtestting' %}" method="POST">
+            {% comment %} <form action="{% url 'appcovercall:backtestting' %}" method="POST"> {% endcomment %}
+            <form action="{% url 'appcovercall:backtestdemo' %}" method="POST">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-3">

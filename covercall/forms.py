@@ -31,3 +31,10 @@ class Covercallbt(forms.Form):
     c = forms.FloatField()
     m = forms.FloatField()
     n = forms.FloatField()
+
+class BacktestForm(forms.Form):
+    enddateBt = forms.DateField()
+    timerange = forms.FloatField()
+    c = forms.FloatField()
+    m = forms.FloatField()
+    n = forms.FloatField()

@@ -6,4 +6,5 @@ urlpatterns = [
     path('saveCoverCall/', views.save_covercall, name='saveCoverCall'),
     path('showSymbol/', views.show_symbol, name='showSymbol'),
     path('backtestting/', views.backtest, name='backtestting'),
+    path('backtestdemo/', views.backtest_demo, name='backtestdemo')
 ]

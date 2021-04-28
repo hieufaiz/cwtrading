@@ -4,8 +4,8 @@ from .forms import Covercallstrate
 from .models import CoverCallStrate
 from .forms import Closeprice
 from .models import ClosePrice
-from .forms import Cwprice, Covercallbt
-from .models import CWPrice, CoverCallBacktest
+from .forms import Cwprice, Covercallbt, BacktestForm
+from .models import CWPrice, CoverCallBacktest, Backtest
 import numpy as np
 import scipy.stats as si
 import sympy as sy
@@ -208,3 +208,61 @@ def range_returns(startDate, endDate, timerange, c, m, n):
         listReturns.append(getReturns(listV))
     return np.array(listReturns), np.array(listtimerange)
     
+def backtest_demo(request):
+    if request.method == "POST":
+        data = BacktestForm(request.POST)
+        if data.is_valid():
+            enddateBt = data.cleaned_data['enddateBt']
+            timerange = data.cleaned_data['timerange']
+            c = data.cleaned_data['c']
+            m = data.cleaned_data['m']
+            n = data.cleaned_data['n']
+            covercallbacktest = Backtest(enddateBt = data.cleaned_data['enddateBt'],
+                timerange = data.cleaned_data['timerange'] / 2,
+                c = data.cleaned_data['c'],
+                m = data.cleaned_data['m'],
+                n = data.cleaned_data['n'])
+            covercallbacktest.save()
+            list_timerange, listReturns = log_avg_returns(enddateBt, int(timerange), c, m, n)
+            avgreturn = []
+            for r in listReturns:
+                avgreturn.append(sum(r)/len(r))
+            log_avg_return = getReturns(avgreturn)
+            listday = []
+            for i in range(0, 12):
+                listday.append(i)
+            plt.plot(listday, np.flip(log_avg_return), color='green', label='prices')
+            plt.title('Log returns average graph:')
+            plt.xlabel('Date')
+            plt.ylabel('Log Returns average')
+            buffer = BytesIO()
+            plt.savefig(buffer, format='png')
+            buffer.seek(0)
+            image_png = buffer.getvalue()
+            buffer.close()
+            imageReturn = base64.b64encode(image_png)
+            imageReturn = imageReturn.decode('utf-8')
+            return render(request, 'covercall/backtest.html', {'enddateBt': data.cleaned_data['enddateBt'],
+            'timerange': data.cleaned_data['timerange'],'c': c, 'list_timerange': list_timerange,
+            'listReturns': listReturns, 'imageReturn': imageReturn, 'log_avg_return': log_avg_return})
+        else:   
+            return HttpResponse('Bad Request')
+
+def log_avg_returns(endDate, timerange, c, m, n):
+    idEnd = CWPrice.objects.filter(dateCW=endDate).values('id')
+    idEnd = int(idEnd[0]['id'])
+    listReturns = []
+    list_timerange = []
+    listV = []
+    while(idEnd > timerange - 1):
+        timetrade = CWPrice.objects.values('dateCW')[idEnd-timerange:idEnd]
+        list_timerange.append(timetrade)
+        CWdate = []
+        for date in timetrade:
+            CWdate.append(date['dateCW'].strftime("%Y-%m-%d"))
+        for index, date in enumerate(CWdate):
+            s = CWPrice.objects.filter(dateCW = date).values('closePriceCW')
+            listV.append(getV(c, m, n, s[0]['closePriceCW']))
+        listReturns.append(getReturns(listV))
+        idEnd = idEnd - 1
+    return np.array(list_timerange), np.array(listReturns)
