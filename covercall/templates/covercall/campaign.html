@@ -51,62 +51,47 @@
                   </table>
             </div>
             <img src="data:image/png;base64,{{ graphic|safe }}">
-            <h4>Backtester from {{fdateCW}} to {{ldateCW}}</h4>
+            {% comment %} <h4>Backtester from {{fdateCW}} to {{ldateCW}}</h4> {% endcomment %}
             {% comment %} <form action="{% url 'appcovercall:backtestting' %}" method="POST"> {% endcomment %}
             <form action="{% url 'appcovercall:backtestdemo' %}" method="POST">
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-sm">
                         <div class="form-group">
-                            <label for="assetprice">Start:</label></br>
-                            <input type="date" name="startdateBt" id="startDate">
+                            <label for="maturity">Maturity:</label></br>
+                            <input type="text" name="maturity" id="maturity">
+                        </div>
+                        <div class="form-group">
+                            <label for="strikeprice">Strike Price:</label></br>
+                            <input type="text" name="strikePrice" id="strikePrice">
+                        </div> 
+                        <div class="form-group">
+                            <label for="assetprice">Stock Symbol:</label></br>
+                            <input type="text" name="symbol" id="" value="{{symbol}}" readonly>
+                        </div>  
+                        <div class="form-group">
+                            <label for="rate">Rate:</label></br>
+                            <input type="text" name="rate" id="rate" value={{rate}}>
                         </div>
                         <div class="form-group">
                             <label for="assetprice">End:</label></br>
                             <input type="date" name="enddateBt" id="endDate" >
                         </div>
                         <div class="form-group">
-                            <label for="assetprice">Delta time:</label></br>
+                            <label for="assetprice">Time range:</label></br>
                             <input type="text" name="timerange" id="timerange">
                         </div>
-                    </div>
-                    <div class="col-3">
-                        {% comment %} <div class="form-group">
-                            <label for="assetprice">Time range:</label></br>
-                            <input type="number" name="timerange" >
-                        </div> {% endcomment %}
+                        
                         <div class="form-group">
-                            <label for="assetprice">European Call:</label></br>
-                            <input type="text" name="c"  id="C" value="{{ call }}" readonly>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="assetprice">Number of Options:</label></br>
-                            <input type="text" name = "m" id="M">
-                        </div>
-                        <div class="form-group">
-                            <label for="assetprice">Number of Stocks:</label></br>
-                            <input type="text" name="n" id="N" readonly>
-                        </div>
-                        <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="deltaOptions">Delta Options:</label></br>
-                            <input type="number" id="delta" value="{{ deltaOptions }}" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Backtesting</label></br>
                             <button type="submit" class="btn btn-primary">Test</button>
-                        </div>
+                        </div>   
                     </div>
                 </div>
                 {% comment %} <button type="submit" class="btn btn-primary">Test</button> {% endcomment %}
             </form>
         </div>
     </div>
-      <script>
+      {% comment %} <script>
           function processcampain(){
             document.getElementById("N").value = document.getElementById("M").value * document.getElementById("delta").value
             var startDate = new Date(document.getElementById('startDate').value);
@@ -114,6 +99,6 @@
             deltaTime = Math.abs(endDate - startDate);
             document.getElementById('timerange').value = deltaTime/(24*1000*60*60) 
           }
-      </script>
+      </script> {% endcomment %}
 </body>
 </html>

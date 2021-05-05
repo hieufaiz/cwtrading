@@ -32,9 +32,17 @@ class CoverCallBacktest(models.Model):
     m = models.FloatField(null=True)
     n = models.FloatField(null=True)
 
-class Backtest(models.Model):
+class BackTestCover(models.Model):
     enddateBt = models.DateField()
     timerange = models.FloatField(null=True)
-    c = models.FloatField(null=True)
+    rate = models.FloatField(null=True)
+    strikePrice = models.FloatField(null=True)
+    symbol = models.CharField(max_length=10)
+    maturity = models.FloatField(default=0.5)
+
+class BackTester(models.Model):
+    enddateBt = models.DateField()
+    timerange = models.FloatField(null=True)
     m = models.FloatField(null=True)
     n = models.FloatField(null=True)
+    symbol = models.CharField(max_length=10)

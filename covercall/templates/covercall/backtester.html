@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Cover Warranty</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'covercall/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Covered Call Backtester</h2>
+        {{list_timerange}}
+        {{log_avg_return}}
+        {% comment %} {{listday}}  {% endcomment %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="To">To:</label></br>
+                        <input type="text" name="endDate" id="" value="{{enddateBt}}" >
+                    </div>
+                    <div class="form-group">
+                            <label for="Timerange">Time range(days):</label></br>
+                            <input type="number" name="timerange" id="" readonly value="{{timerange}}">
+                        </div>
+                    <div class="form-group">
+                        <label for="vol">Number of Options:</label></br>
+                        <input type="text" id="m" name="m" value={{m}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="vol">Number of Stocks:</label></br>
+                        <input type="text" id="n" name="n" value={{n}}>
+                    </div> 
+                </div>
+            </div>
+        </form>
+        <img src="data:image/png;base64,{{ imageReturn|safe }}">
+      </div>
+</body>
+<script>
+</script>
+</html>

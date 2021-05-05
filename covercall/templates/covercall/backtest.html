@@ -13,38 +13,73 @@
 </head>
 <body>
     <div class="container">
-        <h2>Covered Call Backtester</h2>
-        {% comment %} {{log_avg_return}} {% endcomment %}
-        {% comment %} {{list_timerange}}
-        {{listReturns}} {% endcomment %}
-        {{log_avg_return}}
-        <form action="" method="POST">
+        <h2>Estimate Backtest</h2>
+        {% comment %} {{enddateBt}} {% endcomment %}
+        <form action="{% url 'appcovercall:backtestting' %}" method="POST">
             {% csrf_token %}
             <div class="row">
-                <div class="col-sm">
+                <div class="col-3">
                     {% comment %} <div class="form-group">
-                        <label for="From">From:</label></br>
-                        <input type="text" name="startDate" id="" value="{{startDate}}" readonly>
-                    </div> {% endcomment %}
-                    <div class="form-group">
                         <label for="To">To:</label></br>
-                        <input type="text" name="endDate" id="" value="{{enddateBt}}" readonly>
-                    </div>
+                        <input type="text" name="enddateBt" id="" value="{{enddateBt}}" readonly>
+                    </div> {% endcomment %}
                     <div class="form-group">
                             <label for="Timerange">Time range(days):</label></br>
                             <input type="number" name="timerange" id="" readonly value="{{timerange}}">
-                            <small id="ex1" class="form-text text-muted">Maximum: {{timerange}}</small>
                         </div>
                     <div class="form-group">
-                        <label for="EuropeanCall">European Call:</label></br>
-                        <input type="text" id="C" value="{{c}}" readonly>
+                        <label for="strikePrice">Strike Price:</label></br>
+                        <input type="text" id="strikePrice" value="{{strikePrice}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="assetPrice">Asset Price:</label></br>
+                        <input type="text" id="C" value="{{assetPrice}}" name="assetPrice">
                     </div>  
+                    <div class="form-group">
+                        <label for="vol">Volatility:</label></br>
+                        <input type="text" id="volatility" value="{{volatility}}" name="volatility">
+                    </div>
+                    <div class="form-group">
+                        <label for="To">To:</label></br>
+                        <input type="text" name="enddateBt" id="enddateBt" value="{{enddateBt}}">
+                    </div>
                 </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="vol">Symbol:</label></br>
+                        <input type="text" id="symbol" value="{{symbol}}" name="symbol">
+                    </div>
+                    <div class="form-group">
+                        <label for="vol">Hedge ratio:</label></br>
+                        <input type="text" id="delta" value="{{hed}}" name="hedge ratio">
+                    </div>  
+                    <div class="form-group">
+                        <label for="vol">Number of Options:</label></br>
+                        <input type="text" id="m" name="m">
+                    </div>
+                    <div class="form-group">
+                        <label for="vol">Number of Stocks:</label></br>
+                        <input type="text" id="n" name="n">
+                    </div>
+                    
+                    <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button>
+                    <button type="submit" class="btn bg-success text-white">Test</button>    
+                </div>
+                {% comment %} <div class="col-3">
+                    <div class="form-group">
+                        <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button>
+                    </div>   
+                </div> {% endcomment %}
             </div>
+            {% comment %} <button type="button" class="btn bg-success text-white" onclick="processcampain()">Estimate</button>
+            <button type="submit" class="btn bg-success text-white">Test</button> {% endcomment %}
         </form>
-        <img src="data:image/png;base64,{{ imageReturn|safe }}">
+        {% comment %} <img src="data:image/png;base64,{{ imageReturn|safe }}"> {% endcomment %}
       </div>
 </body>
 <script>
+    function processcampain(){
+        document.getElementById("n").value = document.getElementById("m").value * document.getElementById("delta").value 
+    }
 </script>
 </html>

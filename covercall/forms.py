@@ -32,9 +32,17 @@ class Covercallbt(forms.Form):
     m = forms.FloatField()
     n = forms.FloatField()
 
-class BacktestForm(forms.Form):
+class Backtestcover(forms.Form):
     enddateBt = forms.DateField()
     timerange = forms.FloatField()
-    c = forms.FloatField()
+    rate = forms.FloatField()
+    strikePrice = forms.FloatField()
+    symbol = forms.CharField()
+    maturity = forms.FloatField()
+
+class Backtester(forms.Form):
+    enddateBt = forms.DateField()
+    timerange = forms.FloatField()
     m = forms.FloatField()
     n = forms.FloatField()
+    symbol = forms.CharField()
