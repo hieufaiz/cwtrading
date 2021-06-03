@@ -306,12 +306,12 @@ def backtest(request):
             buffer = BytesIO()
             plt.savefig(buffer, format='png')
             buffer.seek(0)
-            image_png = buffer.getvalue()
+            image_log = buffer.getvalue()
             buffer.close()
-            imageReturn = base64.b64encode(image_png)
+            imageReturn = base64.b64encode(image_log)
             imageReturn = imageReturn.decode('utf-8')
             return render(request, 'covercall/backtester.html', {'symbol': symbol, 'm': m, 'n': n, 
-            'imageReturn': imageReturn, 'listday':listday,
+            'imgreturn': imageReturn, 'listday':listday,
             'enddateBt': enddateBt, 'timerange': timerange, 'log_avg_return':log_avg_return, 'list_timerange': list_timerange})
         else:   
             return HttpResponse('Bad Request') 

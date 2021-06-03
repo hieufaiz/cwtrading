@@ -14,8 +14,8 @@
 <body>
     <div class="container">
         <h2>Covered Call Backtester</h2>
-        {{list_timerange}}
-        {{log_avg_return}}
+        {% comment %} {{list_timerange}}
+        {{log_avg_return}} {% endcomment %}
         {% comment %} {{listday}}  {% endcomment %}
         <form action="" method="POST">
             {% csrf_token %}
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </form>
-        <img src="data:image/png;base64,{{ imageReturn|safe }}">
+        <img src="data:image/png;base64,{{ imgreturn | safe }}">
       </div>
 </body>
 <script>
